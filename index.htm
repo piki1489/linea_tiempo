@@ -6,23 +6,40 @@
   <title>Línea de Tiempo Interactiva</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(120deg, #f0f0f0, #e0e0e0);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .timeline-container {
+      width: 90%;
+      max-width: 1200px;
+      background-color: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      position: relative;
     }
 
     .timeline {
-      width: 90%;
-      margin: 0 auto;
       display: flex;
       justify-content: space-between;
+      align-items: center;
       position: relative;
+      padding: 20px 0;
     }
 
     .timeline::before {
       content: '';
       position: absolute;
       top: 50%;
-      left: 0;
-      right: 0;
+      left: 5%;
+      right: 5%;
       height: 4px;
       background-color: #e0e0e0;
       z-index: 1;
@@ -32,11 +49,19 @@
       text-align: center;
       position: relative;
       z-index: 2;
+      width: 150px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Efecto hover */
+    .timeline-event:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
     }
 
     .timeline-event .event-icon {
-      height: 50px;
-      width: 50px;
+      height: 60px;
+      width: 60px;
       background-color: #0e3f89;
       border-radius: 50%;
       display: flex;
@@ -44,81 +69,149 @@
       justify-content: center;
       margin: 0 auto;
       color: white;
-      font-size: 20px;
+      font-size: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .timeline-event:hover .event-icon {
+      background-color: #34a853;
+      transform: rotate(360deg);
     }
 
     .timeline-event .event-date {
-      margin-top: 10px;
+      margin-top: 15px;
       font-weight: bold;
+      color: #333;
     }
 
     .timeline-event .event-details {
       display: none;
-      background-color: #f0f0f0;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 8px;
+      opacity: 0;
+      background-color: #f7f7f7;
+      padding: 15px;
+      margin-top: 15px;
+      border-radius: 10px;
       border: 2px solid #0e3f89;
+      transform: translateY(-10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      text-align: center;
+    }
+
+    .timeline-event img {
+      width: 80%;
+      max-width: 900px;
+      height: auto;
+      max-height: 80vh; /* Limitar la altura máxima para que no ocupe toda la pantalla */
+      border-radius: 10px;
+      margin: 0 auto;
     }
 
     .timeline-event.active .event-details {
       display: block;
+      opacity: 1;
+      transform: translateY(0);
     }
 
-    /* Animación de color */
     .timeline-event.active .event-icon {
       background-color: #34a853;
+    }
+
+    /* Mejora de diseño para dispositivos móviles */
+    @media (max-width: 768px) {
+      .timeline {
+        flex-direction: column;
+      }
+
+      .timeline::before {
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        height: 100%;
+        width: 4px;
+      }
+
+      .timeline-event {
+        margin-bottom: 40px;
+        width: auto;
+      }
+
+      .timeline-event .event-icon {
+        margin-bottom: 10px;
+      }
+
+      .timeline-event img {
+        width: 100%;
+        max-height: 60vh;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="timeline">
-    <div class="timeline-event" onclick="toggleDetails(this)">
-      <div class="event-icon">💡</div>
-      <div class="event-date">1995</div>
-      <div class="event-details">
-        <p>Este es el evento de 1995.</p>
+  <div class="timeline-container">
+    <div class="timeline">
+      <div class="timeline-event" onclick="toggleDetails(event, this)">
+        <div class="event-icon">💡</div>
+        <div class="event-date">1995</div>
+        <div class="event-details">
+          <p>Este es el evento de 1995.</p>
+          <img src="https://images.unsplash.com/photo-1495562569060-2eec283d3391?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDF8fG5hdHVyZXxlbnwwfHx8fDE2MzM4MTUwNTI&ixlib=rb-1.2.1&q=80&w=1080" alt="Imagen de ejemplo 1995">
+        </div>
       </div>
-    </div>
-    <div class="timeline-event" onclick="toggleDetails(this)">
-      <div class="event-icon">⚙️</div>
-      <div class="event-date">2000</div>
-      <div class="event-details">
-        <p>Este es el evento de 2000.</p>
+      <div class="timeline-event" onclick="toggleDetails(event, this)">
+        <div class="event-icon">⚙️</div>
+        <div class="event-date">2000</div>
+        <div class="event-details">
+          <p>Este es el evento de 2000.</p>
+          <img src="https://images.unsplash.com/photo-1558980664-10aa4fd597e1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fHRlY2hub2xvZ3l8ZW58MHx8fHwxNjMzODE1MTU1&ixlib=rb-1.2.1&q=80&w=1080" alt="Imagen de ejemplo 2000">
+        </div>
       </div>
-    </div>
-    <div class="timeline-event" onclick="toggleDetails(this)">
-      <div class="event-icon">🌍</div>
-      <div class="event-date">2005</div>
-      <div class="event-details">
-        <p>Este es el evento de 2005.</p>
+      <div class="timeline-event" onclick="toggleDetails(event, this)">
+        <div class="event-icon">🌍</div>
+        <div class="event-date">2005</div>
+        <div class="event-details">
+          <p>Este es el evento de 2005.</p>
+          <img src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDN8fGdsb2JlfGVufDB8fHx8MTYzMzgxNTE4OQ&ixlib=rb-1.2.1&q=80&w=1080" alt="Imagen de ejemplo 2005">
+        </div>
       </div>
-    </div>
-    <div class="timeline-event" onclick="toggleDetails(this)">
-      <div class="event-icon">📧</div>
-      <div class="event-date">2010</div>
-      <div class="event-details">
-        <p>Este es el evento de 2010.</p>
+      <div class="timeline-event" onclick="toggleDetails(event, this)">
+        <div class="event-icon">📧</div>
+        <div class="event-date">2010</div>
+        <div class="event-details">
+          <p>Este es el evento de 2010.</p>
+          <img src="https://images.unsplash.com/photo-1501426026826-a6d96e296fa0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDV8fGVtYWlsfGVufDB8fHx8MTYzMzgxNTIxNg&ixlib=rb-1.2.1&q=80&w=1080" alt="Imagen de ejemplo 2010">
+        </div>
       </div>
-    </div>
-    <div class="timeline-event" onclick="toggleDetails(this)">
-      <div class="event-icon">📈</div>
-      <div class="event-date">2015</div>
-      <div class="event-details">
-        <p>Este es el evento de 2015.</p>
+      <div class="timeline-event" onclick="toggleDetails(event, this)">
+        <div class="event-icon">📈</div>
+        <div class="event-date">2015</div>
+        <div class="event-details">
+          <p>Este es el evento de 2015.</p>
+          <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDR8fHdvcmt8ZW58MHx8fHwxNjMzODE1MjM5&ixlib=rb-1.2.1&q=80&w=1080" alt="Imagen de ejemplo 2015">
+        </div>
       </div>
     </div>
   </div>
 
   <script>
-    function toggleDetails(element) {
+    function toggleDetails(event, element) {
+      event.stopPropagation();  // Evita que el evento de clic se propague al documento
       const allEvents = document.querySelectorAll('.timeline-event');
       allEvents.forEach(event => {
         event.classList.remove('active');
       });
       element.classList.add('active');
     }
+
+    // Cierra los detalles si haces clic fuera de un evento
+    document.addEventListener('click', function() {
+      const allEvents = document.querySelectorAll('.timeline-event');
+      allEvents.forEach(event => {
+        event.classList.remove('active');
+      });
+    });
+
   </script>
 
 </body>
