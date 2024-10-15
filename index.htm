@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Línea de Tiempo Interactiva</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .timeline {
+      width: 90%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background-color: #e0e0e0;
+      z-index: 1;
+    }
+
+    .timeline-event {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .timeline-event .event-icon {
+      height: 50px;
+      width: 50px;
+      background-color: #0e3f89;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto;
+      color: white;
+      font-size: 20px;
+    }
+
+    .timeline-event .event-date {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    .timeline-event .event-details {
+      display: none;
+      background-color: #f0f0f0;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 2px solid #0e3f89;
+    }
+
+    .timeline-event.active .event-details {
+      display: block;
+    }
+
+    /* Animación de color */
+    .timeline-event.active .event-icon {
+      background-color: #34a853;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="timeline">
+    <div class="timeline-event" onclick="toggleDetails(this)">
+      <div class="event-icon">💡</div>
+      <div class="event-date">1995</div>
+      <div class="event-details">
+        <p>Este es el evento de 1995.</p>
+      </div>
+    </div>
+    <div class="timeline-event" onclick="toggleDetails(this)">
+      <div class="event-icon">⚙️</div>
+      <div class="event-date">2000</div>
+      <div class="event-details">
+        <p>Este es el evento de 2000.</p>
+      </div>
+    </div>
+    <div class="timeline-event" onclick="toggleDetails(this)">
+      <div class="event-icon">🌍</div>
+      <div class="event-date">2005</div>
+      <div class="event-details">
+        <p>Este es el evento de 2005.</p>
+      </div>
+    </div>
+    <div class="timeline-event" onclick="toggleDetails(this)">
+      <div class="event-icon">📧</div>
+      <div class="event-date">2010</div>
+      <div class="event-details">
+        <p>Este es el evento de 2010.</p>
+      </div>
+    </div>
+    <div class="timeline-event" onclick="toggleDetails(this)">
+      <div class="event-icon">📈</div>
+      <div class="event-date">2015</div>
+      <div class="event-details">
+        <p>Este es el evento de 2015.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function toggleDetails(element) {
+      const allEvents = document.querySelectorAll('.timeline-event');
+      allEvents.forEach(event => {
+        event.classList.remove('active');
+      });
+      element.classList.add('active');
+    }
+  </script>
+
+</body>
+</html>
